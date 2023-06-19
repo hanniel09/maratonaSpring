@@ -5,6 +5,7 @@ import estudosSpring.maratonaSpring.requests.AnimePostRequestBody;
 import estudosSpring.maratonaSpring.requests.AnimePutRequestBody;
 import estudosSpring.maratonaSpring.service.AnimeService;
 import estudosSpring.maratonaSpring.util.DateUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody) {
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
 
