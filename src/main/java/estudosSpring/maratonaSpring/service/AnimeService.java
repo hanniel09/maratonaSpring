@@ -6,6 +6,7 @@ import estudosSpring.maratonaSpring.mapper.AnimeMapper;
 import estudosSpring.maratonaSpring.repository.AnimeRepository;
 import estudosSpring.maratonaSpring.requests.AnimePostRequestBody;
 import estudosSpring.maratonaSpring.requests.AnimePutRequestBody;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,7 @@ public class AnimeService {
                         new BadRequestException("Anime ID not found"));
     }
 
+    @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody) {
         return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
