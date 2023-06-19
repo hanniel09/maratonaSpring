@@ -1,6 +1,7 @@
 package estudosSpring.maratonaSpring.service;
 
 import estudosSpring.maratonaSpring.domain.Anime;
+import estudosSpring.maratonaSpring.exception.BadRequestException;
 import estudosSpring.maratonaSpring.mapper.AnimeMapper;
 import estudosSpring.maratonaSpring.repository.AnimeRepository;
 import estudosSpring.maratonaSpring.requests.AnimePostRequestBody;
@@ -31,7 +32,7 @@ public class AnimeService {
     public Anime findByIdOrThrowBadRequestException(long id) {
         return animeRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime ID not found"));
+                        new BadRequestException("Anime ID not found"));
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
