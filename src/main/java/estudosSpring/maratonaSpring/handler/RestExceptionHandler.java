@@ -3,7 +3,6 @@ package estudosSpring.maratonaSpring.handler;
 import estudosSpring.maratonaSpring.exception.BadRequestException;
 import estudosSpring.maratonaSpring.exception.BadRequestExceptionDetails;
 import estudosSpring.maratonaSpring.exception.ValidationExceptionDetails;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class RestExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<BadRequestExceptionDetails> handlerBadRequestException(BadRequestException bre) {
+    public ResponseEntity<BadRequestExceptionDetails> handleBadRequestException(BadRequestException bre) {
         return new ResponseEntity<>(
                 BadRequestExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())

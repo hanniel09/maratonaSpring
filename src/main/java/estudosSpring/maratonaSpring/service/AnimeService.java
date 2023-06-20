@@ -8,6 +8,8 @@ import estudosSpring.maratonaSpring.requests.AnimePostRequestBody;
 import estudosSpring.maratonaSpring.requests.AnimePutRequestBody;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,8 +24,8 @@ public class AnimeService {
 
     private final AnimeRepository animeRepository;
 
-    public List<Anime> listAll() {
-        return animeRepository.findAll();
+    public Page<Anime> listAll(Pageable pageable) {
+        return animeRepository.findAll(pageable);
     }
 
     public List<Anime> findByName(String name) {
@@ -51,4 +53,5 @@ public class AnimeService {
         anime.setId(savedAnime.getId());
         animeRepository.save(anime);
     }
+
 }
