@@ -20,7 +20,8 @@ public class SpringClient {
         Anime object = new RestTemplate().getForObject("http://localhost:8080/animes/{id}", Anime.class, 8);
         log.info(object);
 
-        ResponseEntity<List<Anime>> animes = new RestTemplate().exchange("http://localhost:8080/animes/all", HttpMethod.GET, null,
+        ResponseEntity<List<Anime>> animes = new RestTemplate().exchange("http://localhost:8080/animes/all",
+                HttpMethod.GET, null,
                 new ParameterizedTypeReference<>() {
                 });
         log.info(animes.getBody());
@@ -30,14 +31,29 @@ public class SpringClient {
 //        log.info("saved anime {}", kingdomSaved);
 
         Anime samuraiChamploo = Anime.builder().name("Samurai Champloo").build();
-        ResponseEntity<Anime> samuraiChamplooSaved = new RestTemplate().exchange("http://localhost:8080/animes",HttpMethod.POST ,
+        ResponseEntity<Anime> samuraiChamplooSaved = new RestTemplate().exchange("http://localhost:8080/animes",
+                HttpMethod.POST,
                 new HttpEntity<>(samuraiChamploo, createJsonHeader()), Anime.class);
 
         log.info("saved anime {}", samuraiChamplooSaved);
 
+        Anime animeToBeUpdated = samuraiChamplooSaved.getBody();
+        animeToBeUpdated.setName("Samurai Champloo 2");
+
+        ResponseEntity<Void> samuraiChamplooUpdated = new RestTemplate().exchange("http://localhost:8080/animes",
+                HttpMethod.PUT,
+                new HttpEntity<>(animeToBeUpdated, createJsonHeader()), void.class);
+        log.info(samuraiChamplooUpdated);
+
+        ResponseEntity<Void> samuraiChamplooDelete = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+                HttpMethod.DELETE,
+                null,
+                void.class,
+                animeToBeUpdated.getId());
+        log.info(samuraiChamplooDelete);
     }
 
-    private static HttpHeaders createJsonHeader(){
+    private static HttpHeaders createJsonHeader() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         return httpHeaders;
