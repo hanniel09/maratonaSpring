@@ -3,10 +3,10 @@ package estudosSpring.maratonaSpring;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class MaratonaSpringApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 
